@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saransh Dubey — AI Engineer & Product Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --bg3: #111820;
+    --border: rgba(0,255,160,0.12);
+    --border2: rgba(0,255,160,0.25);
+    --neon: #00ffa0;
+    --neon2: #00d4ff;
+    --neon3: #7b5ea7;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --mono: 'Space Mono', monospace;
+    --display: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--display);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--neon);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(0,255,160,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.18s ease, width 0.2s, height 0.2s;
+    mix-blend-mode: screen;
+    transform: translate(-12px,-12px);
+  }
+
+  /* Scanlines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none;
+    z-index: 9997;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: rgba(8,12,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--neon);
+    letter-spacing: 0.05em;
+  }
+  .logo span { color: var(--muted); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--neon); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,160,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,160,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,255,160,0.07) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--neon);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--neon);
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+  }
+
+  .hero h1 .line2 {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0,255,160,0.4);
+  }
+
+  .hero h1 .accent { color: var(--neon); }
+
+  .hero-sub {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.8rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+    cursor: none;
+  }
+
+  .btn-primary {
+    background: var(--neon);
+    color: var(--bg);
+    font-weight: 700;
+    border: 1px solid var(--neon);
+  }
+  .btn-primary:hover { background: transparent; color: var(--neon); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .btn-outline:hover { border-color: var(--neon2); color: var(--neon2); }
+
+  /* Status badge */
+  .status-badge {
+    position: absolute;
+    bottom: 3rem; right: 3rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--neon);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    background: var(--neon);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Section base */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--neon);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--neon);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    line-height: 1.9;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 700; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .stat-box {
+    background: var(--bg2);
+    padding: 1.75rem 1.5rem;
+    transition: background 0.2s;
+  }
+  .stat-box:hover { background: var(--bg3); }
+
+  .stat-num {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--neon);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    font-family: var(--mono);
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Skills */
+  .skills-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .skills-section > * { max-width: 1200px; margin: 0 auto; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    border: 1px solid var(--border);
+    background: var(--bg);
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--neon);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .skill-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: var(--neon); color: var(--neon); }
+
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: var(--border2); }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--neon);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  .project-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .project-card p {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--neon2);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s;
+    cursor: none;
+  }
+  .project-link:hover { gap: 0.75rem; }
+
+  /* Experience */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--neon), transparent);
+    opacity: 0.3;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 2.5rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 0.5rem;
+    width: 8px; height: 8px;
+    background: var(--bg);
+    border: 1px solid var(--neon);
+    border-radius: 50%;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--neon);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-company {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-item ul {
+    list-style: none;
+    padding: 0;
+  }
+  .timeline-item ul li {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.25rem;
+  }
+  .timeline-item ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--neon);
+  }
+
+  /* Certifications */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--border2); }
+
+  .cert-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  /* Contact */
+  .contact-section {
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding: 6rem 3rem;
+  }
+
+  .contact-section .section-label { justify-content: center; }
+  .contact-section .section-label::after { display: none; }
+  .contact-section .section-label::before {
+    content: '';
+    width: 60px; height: 1px;
+    background: var(--neon);
+    opacity: 0.4;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    cursor: none;
+  }
+  .contact-link:hover { border-color: var(--neon); color: var(--neon); }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero h1 { font-size: 2.75rem; }
+    .status-badge { bottom: 1.5rem; right: 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="logo">SD<span>_portfolio</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-tag">Available for opportunities</div>
+
+  <h1>
+    Saransh<br />
+    <span class="line2">Dubey</span>
+    <span class="accent">.</span>
+  </h1>
+
+  <p class="hero-sub">
+    AI Engineer &amp; Product Developer — building at the intersection of
+    machine intelligence and human-centred products.
+    Based in Lucknow, India.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+
+  <div class="status-badge">
+    <div class="status-dot"></div>
+    Open to intern &amp; full-time roles
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="padding-top:6rem;padding-bottom:6rem;max-width:1200px;margin:0 auto;">
+  <div class="section-label">About</div>
+  <div class="section-title">Who I am</div>
+
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>
+        I'm a <strong>B.Tech Computer Science graduate</strong> from SRM Institute of Science &amp; Technology, Chennai, with a deep focus on AI systems, data quality, and product thinking.
+      </p>
+      <p>
+        Currently working as an <strong>AI Data Annotator &amp; Evaluator</strong> at Deccan AI Experts (Soul AI), contributing to large-scale RLHF pipelines — evaluating model outputs using LICA rubrics, identifying reasoning failures, and shaping how AI systems learn.
+      </p>
+      <p>
+        My background spans <strong>KPI dashboards, data analytics, cross-functional coordination</strong>, and stakeholder communication — skills I've honed across internships at Skillumni, Innodata, and Inovact Labs.
+      </p>
+      <p>
+        I'm actively seeking roles in <strong>Product Management, Data Analytics, Business Analysis</strong>, and Functional Consulting where I can merge my technical depth with product intuition.
+      </p>
+    </div>
+
+    <div class="stats-grid fade-in">
+      <div class="stat-box">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Internships Completed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">AI</div>
+        <div class="stat-label">Current Domain Focus</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Problems to Solve</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="skills-section">
+<section id="skills" style="padding-top:6rem;padding-bottom:6rem;">
+  <div class="section-label">Capabilities</div>
+  <div class="section-title">What I build with</div>
+
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🤖</div>
+      <h3>AI &amp; Machine Learning</h3>
+      <div class="skill-tags">
+        <span class="tag">RLHF</span>
+        <span class="tag">Data Annotation</span>
+        <span class="tag">Model Evaluation</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">LICA Rubrics</span>
+        <span class="tag">Stanford ML</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📊</div>
+      <h3>Data Analytics</h3>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Google Analytics</span>
+        <span class="tag">KPI Dashboards</span>
+        <span class="tag">RandomForest</span>
+        <span class="tag">Data Cleaning</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🧩</div>
+      <h3>Product Development</h3>
+      <div class="skill-tags">
+        <span class="tag">Product Thinking</span>
+        <span class="tag">A/B Testing</span>
+        <span class="tag">Cohort Analysis</span>
+        <span class="tag">User Metrics</span>
+        <span class="tag">Roadmapping</span>
+        <span class="tag">PRDs</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🔗</div>
+      <h3>Cross-Functional</h3>
+      <div class="skill-tags">
+        <span class="tag">Stakeholder Reporting</span>
+        <span class="tag">JIRA</span>
+        <span class="tag">Confluence</span>
+        <span class="tag">Agile</span>
+        <span class="tag">Documentation</span>
+        <span class="tag">Process Design</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">💻</div>
+      <h3>Engineering</h3>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Git / GitHub</span>
+        <span class="tag">HTML/CSS</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">Pandas</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🧠</div>
+      <h3>Research &amp; Analysis</h3>
+      <div class="skill-tags">
+        <span class="tag">Competitor Analysis</span>
+        <span class="tag">Market Research</span>
+        <span class="tag">Policy Analysis</span>
+        <span class="tag">Critical Thinking</span>
+        <span class="tag">Ethics in AI</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects" style="padding-top:6rem;padding-bottom:6rem;max-width:1200px;margin:0 auto;">
+  <div class="section-label">Work</div>
+  <div class="section-title">Selected Projects</div>
+
+  <div class="projects-grid">
+    <div class="project-card fade-in">
+      <div class="project-num">01 — AI / ML</div>
+      <h3>Bank Marketing Predictive Analysis</h3>
+      <p>
+        Built a RandomForestClassifier pipeline for the Incedo AI Innovation Challenge to predict term deposit subscription from campaign data. Handled class imbalance, feature engineering, and iterative debugging to achieve robust validation performance.
+      </p>
+      <div class="skill-tags" style="margin-bottom:1.25rem;">
+        <span class="tag">Python</span>
+        <span class="tag">RandomForest</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Scikit-learn</span>
+      </div>
+      <a href="https://github.com/14-saransh" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-num">02 — AI Ops</div>
+      <h3>Project Shield — AI Safety Evaluation</h3>
+      <p>
+        Contributed to large-scale model safety evaluation at Deccan AI Experts (Soul AI). Applied LICA rubric-based frameworks to annotate and score model responses, identifying hallucinations, reasoning failures, and safety violations across thousands of data points.
+      </p>
+      <div class="skill-tags" style="margin-bottom:1.25rem;">
+        <span class="tag">RLHF</span>
+        <span class="tag">LICA Rubrics</span>
+        <span class="tag">AI Safety</span>
+        <span class="tag">Annotation</span>
+      </div>
+      <a href="https://github.com/14-saransh" class="project-link" target="_blank">View GitHub →</a>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-num">03 — Analytics</div>
+      <h3>KPI Dashboard System — Skillumni</h3>
+      <p>
+        Designed and maintained KPI dashboards for stakeholder reporting at Skillumni. Tracked engagement metrics, surfaced actionable trends, and presented weekly reports to leadership — cutting reporting cycle time through structured data pipelines.
+      </p>
+      <div class="skill-tags" style="margin-bottom:1.25rem;">
+        <span class="tag">Dashboard Design</span>
+        <span class="tag">Stakeholder Reporting</span>
+        <span class="tag">KPI Tracking</span>
+        <span class="tag">Data Analysis</span>
+      </div>
+      <a href="https://github.com/14-saransh" class="project-link" target="_blank">View GitHub →</a>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-num">04 — Product</div>
+      <h3>Sensodyne Pronamel — Product Audit</h3>
+      <p>
+        Conducted a deep product analytics audit for a Product Analyst interview challenge at Digiaccel. Developed cohort analysis framework, A/B testing scenarios, retention metrics, and competitive positioning insights using first-principles thinking.
+      </p>
+      <div class="skill-tags" style="margin-bottom:1.25rem;">
+        <span class="tag">Cohort Analysis</span>
+        <span class="tag">A/B Testing</span>
+        <span class="tag">Product Metrics</span>
+        <span class="tag">SQL</span>
+      </div>
+      <a href="https://github.com/14-saransh" class="project-link" target="_blank">View GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="padding-top:6rem;padding-bottom:6rem;max-width:1200px;margin:0 auto;border-top:1px solid var(--border);">
+  <div class="section-label">History</div>
+  <div class="section-title">Experience</div>
+
+  <div class="timeline">
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">2024 — Present</div>
+      <h3>AI Data Annotator &amp; Evaluator</h3>
+      <div class="timeline-company">Deccan AI Experts (Soul AI) · Remote</div>
+      <ul>
+        <li>Evaluate LLM responses using LICA rubric-based frameworks across Projects Shield and Chronos</li>
+        <li>Identify reasoning failures, hallucinations, and safety issues in model outputs</li>
+        <li>Complete RLHF training modules and contribute to annotation quality benchmarks</li>
+        <li>Apply critical thinking to edge cases in model behaviour evaluation</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">2023</div>
+      <h3>Data Analytics Intern</h3>
+      <div class="timeline-company">Skillumni · Remote</div>
+      <ul>
+        <li>Built and maintained KPI dashboards for weekly stakeholder reporting</li>
+        <li>Tracked user engagement metrics and identified actionable growth trends</li>
+        <li>Delivered structured data reports to leadership team</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">2023</div>
+      <h3>Data Operations Intern</h3>
+      <div class="timeline-company">Innodata · Remote</div>
+      <ul>
+        <li>Performed data cleaning and quality checks on large structured datasets</li>
+        <li>Ensured data integrity and consistency across annotation pipelines</li>
+        <li>Collaborated with QA teams to maintain output accuracy standards</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">2022 — 2023</div>
+      <h3>Operations &amp; Coordination Intern</h3>
+      <div class="timeline-company">Inovact Labs · Remote</div>
+      <ul>
+        <li>Coordinated cross-functional tasks across product, design, and engineering teams</li>
+        <li>Managed project timelines and communication between stakeholders</li>
+        <li>Documented workflows and maintained internal knowledge bases</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section style="padding-top:6rem;padding-bottom:6rem;max-width:1200px;margin:0 auto;border-top:1px solid var(--border);">
+  <div class="section-label">Credentials</div>
+  <div class="section-title">Education &amp; Certifications</div>
+
+  <div class="timeline" style="margin-bottom:3rem;">
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">2020 — 2024</div>
+      <h3>B.Tech — Computer Science &amp; Engineering</h3>
+      <div class="timeline-company">SRM Institute of Science &amp; Technology, Chennai</div>
+    </div>
+  </div>
+
+  <div class="certs-grid">
+    <div class="cert-card fade-in">
+      <div class="cert-icon">📈</div>
+      <div>
+        <div class="cert-name">Google Data Analytics</div>
+        <div class="cert-issuer">Google · Coursera</div>
+      </div>
+    </div>
+    <div class="cert-card fade-in">
+      <div class="cert-icon">🧠</div>
+      <div>
+        <div class="cert-name">Machine Learning Specialization</div>
+        <div class="cert-issuer">Stanford University · Coursera</div>
+      </div>
+    </div>
+    <div class="cert-card fade-in">
+      <div class="cert-icon">🔗</div>
+      <div>
+        <div class="cert-name">Introduction to Networks</div>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title" style="margin-bottom:1rem;">Let's work together</h2>
+  <p style="font-family:var(--mono);font-size:0.9rem;color:var(--muted);max-width:480px;margin:0 auto 2rem;line-height:1.8;">
+    Open to internships, entry-level roles, and interesting conversations around AI, product, and data.
+  </p>
+
+  <div class="contact-links">
+    <a href="https://github.com/14-saransh" class="contact-link" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/saransh-dubey" class="contact-link" target="_blank">LinkedIn</a>
+    <a href="mailto:saransh@example.com" class="contact-link">Email</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Saransh Dubey. Built with intention.</p>
+  <p>Lucknow, India · Available for remote &amp; hybrid roles</p>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 4 + 'px';
+    cursor.style.top = my - 4 + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx - 16) * 0.12;
+    ry += (my - ry - 16) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // Scroll fade-in
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
