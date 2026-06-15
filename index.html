@@ -35,7 +35,6 @@
     cursor: none;
   }
 
-  /* Custom cursor */
   .cursor {
     position: fixed;
     width: 8px; height: 8px;
@@ -58,7 +57,6 @@
     transform: translate(-12px,-12px);
   }
 
-  /* Scanlines */
   body::after {
     content: '';
     position: fixed;
@@ -68,7 +66,6 @@
     z-index: 9997;
   }
 
-  /* Nav */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -106,7 +103,6 @@
   }
   .nav-links a:hover { color: var(--neon); }
 
-  /* Hero */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -213,7 +209,6 @@
   }
   .btn-outline:hover { border-color: var(--neon2); color: var(--neon2); }
 
-  /* Status badge */
   .status-badge {
     position: absolute;
     bottom: 3rem; right: 3rem;
@@ -236,7 +231,6 @@
     50% { opacity: 0.3; }
   }
 
-  /* Section base */
   section {
     padding: 6rem 3rem;
     max-width: 1200px;
@@ -271,7 +265,6 @@
     line-height: 1.1;
   }
 
-  /* About */
   .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -320,7 +313,6 @@
     text-transform: uppercase;
   }
 
-  /* Skills */
   .skills-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .skills-section > * { max-width: 1200px; margin: 0 auto; }
 
@@ -380,7 +372,6 @@
   }
   .tag:hover { border-color: var(--neon); color: var(--neon); }
 
-  /* Projects */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -436,7 +427,6 @@
   }
   .project-link:hover { gap: 0.75rem; }
 
-  /* Experience */
   .timeline {
     position: relative;
     padding-left: 2rem;
@@ -507,7 +497,6 @@
     color: var(--neon);
   }
 
-  /* Certifications */
   .certs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -547,7 +536,6 @@
     color: var(--muted);
   }
 
-  /* Contact */
   .contact-section {
     text-align: center;
     border-top: 1px solid var(--border);
@@ -585,7 +573,6 @@
   }
   .contact-link:hover { border-color: var(--neon); color: var(--neon); }
 
-  /* Footer */
   footer {
     border-top: 1px solid var(--border);
     padding: 1.5rem 3rem;
@@ -600,7 +587,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* Animations */
   .fade-in {
     opacity: 0;
     transform: translateY(24px);
@@ -611,7 +597,6 @@
     transform: translateY(0);
   }
 
-  /* Mobile */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
@@ -874,7 +859,7 @@
 
   <div class="timeline">
     <div class="timeline-item fade-in">
-      <div class="timeline-date">2024 — Present</div>
+      <div class="timeline-date">Mar 2026 – May 2026</div>
       <h3>AI Data Annotator &amp; Evaluator</h3>
       <div class="timeline-company">Deccan AI Experts (Soul AI) · Remote</div>
       <ul>
@@ -886,24 +871,24 @@
     </div>
 
     <div class="timeline-item fade-in">
-      <div class="timeline-date">2023</div>
-      <h3>Data Analytics Intern</h3>
-      <div class="timeline-company">Skillumni · Remote</div>
+      <div class="timeline-date">Jan 2026 – Mar 2026</div>
+      <h3>Data Analyst</h3>
+      <div class="timeline-company">Innodata · Remote</div>
       <ul>
-        <li>Built and maintained KPI dashboards for weekly stakeholder reporting</li>
-        <li>Tracked user engagement metrics and identified actionable growth trends</li>
-        <li>Delivered structured data reports to leadership team</li>
+        <li>Cleaned and transformed large datasets using Excel and SQL</li>
+        <li>Collaborated with QA teams to define quality benchmarks and standardize reporting templates</li>
+        <li>Identified and flagged data anomalies, reducing downstream errors across pipelines</li>
       </ul>
     </div>
 
     <div class="timeline-item fade-in">
-      <div class="timeline-date">2023</div>
-      <h3>Data Operations Intern</h3>
-      <div class="timeline-company">Innodata · Remote</div>
+      <div class="timeline-date">Jun 2025 – Sep 2025</div>
+      <h3>Business Analyst Intern</h3>
+      <div class="timeline-company">Skillumni · Bangalore, India</div>
       <ul>
-        <li>Performed data cleaning and quality checks on large structured datasets</li>
-        <li>Ensured data integrity and consistency across annotation pipelines</li>
-        <li>Collaborated with QA teams to maintain output accuracy standards</li>
+        <li>Built KPI dashboards in Tableau and Excel; validated data pipeline accuracy</li>
+        <li>Surfaced retention drivers from product and marketing data to inform growth strategies</li>
+        <li>Tracked sprint tasks in Jira; coordinated with product and engineering teams</li>
       </ul>
     </div>
 
@@ -927,7 +912,7 @@
 
   <div class="timeline" style="margin-bottom:3rem;">
     <div class="timeline-item fade-in">
-      <div class="timeline-date">2020 — 2024</div>
+      <div class="timeline-date">Aug 2021 – Aug 2025</div>
       <h3>B.Tech — Computer Science &amp; Engineering</h3>
       <div class="timeline-company">SRM Institute of Science &amp; Technology, Chennai</div>
     </div>
@@ -979,7 +964,6 @@
 </footer>
 
 <script>
-  // Cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -997,7 +981,6 @@
   }
   animRing();
 
-  // Scroll fade-in
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
